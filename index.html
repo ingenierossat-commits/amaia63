@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIS_COSAS_63</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Raleway:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      min-height: 100vh;
+      font-family: 'Cinzel', serif;
+      color: #e8d5a3;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1408 50%, #0a0a0a 100%);
+      border-bottom: 1px solid #8b6914;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        45deg, transparent, transparent 40px,
+        rgba(139,105,20,0.03) 40px, rgba(139,105,20,0.03) 41px
+      );
+    }
+
+    .logo {
+      font-size: 22px;
+      letter-spacing: 3px;
+      font-family: 'Cinzel Decorative', serif;
+      font-weight: 700;
+      background: linear-gradient(90deg, #b8860b, #d4af37, #c0c0c0, #d4af37, #8b6914);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    .logo span {
+      font-size: 10px;
+      letter-spacing: 4px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      display: block;
+      background: linear-gradient(90deg, #a0a0a0, #d4af37, #a0a0a0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+
+    .header-btn {
+      background: transparent;
+      border: 1px solid #8b6914;
+      color: #d4af37;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      padding: 9px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .header-btn:hover {
+      background: rgba(212,175,55,0.12);
+      border-color: #d4af37;
+      box-shadow: 0 0 14px rgba(212,175,55,0.2);
+    }
+
+    .breadcrumb {
+      padding: 10px 28px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #6b5a2a;
+      border-bottom: 1px solid #1a1408;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+    }
+
+    .breadcrumb span { cursor: pointer; transition: color 0.2s; }
+    .breadcrumb span:hover { color: #d4af37; }
+    .breadcrumb .sep { color: #3a2e10; cursor: default; }
+    .breadcrumb .current { color: #a08030; cursor: default; }
+
+    .content { padding: 28px; }
+
+    .section-title {
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: #8b6914;
+      margin-bottom: 22px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #2a2010;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    /* CATEGORY / SUB CARDS */
+    .card {
+      background: #0f0d07;
+      border: 1px solid #2a2010;
+      padding: 22px 18px 16px;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #8b6914, #d4af37, #c0c0c0, #d4af37, #8b6914);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 50px; height: 50px;
+      background: radial-gradient(circle at bottom right, rgba(212,175,55,0.05), transparent);
+      pointer-events: none;
+    }
+
+    .card:hover { border-color: #8b6914; background: #13100a; transform: translateY(-2px); }
+    .card:hover::before { opacity: 1; }
+
+    .card-name {
+      font-size: 17px;
+      letter-spacing: 1px;
+      font-family: 'Cinzel Decorative', serif;
+      font-weight: 400;
+      color: #d4af37;
+      line-height: 1.35;
+      word-break: break-word;
+      text-align: center;
+    }
+
+    .card-meta {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #8b6914;
+      margin-top: 10px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      font-style: italic;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card:hover .card-actions { opacity: 1; }
+
+    .act-btn {
+      background: transparent;
+      border: 1px solid #2a2010;
+      color: #6b5a2a;
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      font-weight: 400;
+      padding: 4px 9px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .act-btn:hover { border-color: #d4af37; color: #d4af37; }
+    .act-btn.del:hover { border-color: #8b3030; color: #c04040; }
+
+    /* VIDEO CARDS */
+    .video-card {
+      background: #0f0d07;
+      border: 1px solid #2a2010;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-card:hover { border-color: #8b6914; transform: translateY(-2px); }
+
+    .video-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #1a1408;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .video-thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .play-icon {
+      width: 44px; height: 44px;
+      border: 2px solid #d4af37;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #d4af37;
+      font-size: 15px;
+      position: absolute;
+      background: rgba(10,10,10,0.65);
+      transition: all 0.2s;
+      pointer-events: none;
+    }
+
+    .video-thumb:hover .play-icon { background: rgba(212,175,55,0.18); transform: scale(1.1); }
+
+    .video-info { padding: 12px 14px 6px; }
+
+    .video-name {
+      font-size: 13px;
+      letter-spacing: 1px;
+      font-family: 'Cinzel', serif;
+      color: #c9a227;
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+
+    .video-size {
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: #4a3e1a;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    .video-card .card-actions { padding: 4px 14px 12px; opacity: 1; }
+
+    /* ADD CARD */
+    .add-card {
+      background: transparent;
+      border: 1px dashed #2a2010;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.25s;
+      min-height: 130px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #3a3010;
+    }
+
+    .add-card:hover { border-color: #8b6914; color: #8b6914; background: rgba(139,105,20,0.04); }
+    .add-card .plus { font-size: 26px; }
+
+    /* MODAL */
+    .modal-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background: #0f0d07;
+      border: 1px solid #8b6914;
+      padding: 30px;
+      width: 400px;
+      max-width: 92vw;
+      position: relative;
+    }
+
+    .modal::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #8b6914, #d4af37, #c0c0c0, #d4af37, #8b6914);
+    }
+
+    .modal-title {
+      font-size: 15px;
+      letter-spacing: 2px;
+      font-family: 'Cinzel Decorative', serif;
+      color: #d4af37;
+      margin-bottom: 22px;
+    }
+
+    .modal input[type="text"] {
+      width: 100%;
+      background: #0a0a0a;
+      border: 1px solid #2a2010;
+      color: #e8d5a3;
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      padding: 11px 13px;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 12px;
+    }
+
+    .modal input[type="text"]:focus { border-color: #8b6914; }
+
+    .modal input[type="file"] {
+      width: 100%;
+      background: #0a0a0a;
+      border: 1px solid #2a2010;
+      color: #6b5a2a;
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      padding: 9px 10px;
+      outline: none;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    .modal-warn {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      color: #a08030;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      font-style: italic;
+      text-transform: uppercase;
+    }
+
+    .modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px; }
+
+    .btn-confirm {
+      background: linear-gradient(135deg, #8b6914, #d4af37);
+      border: none;
+      color: #0a0a0a;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      padding: 10px 22px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-confirm:hover { opacity: 0.85; }
+
+    .btn-cancel {
+      background: transparent;
+      border: 1px solid #2a2010;
+      color: #6b5a2a;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      padding: 10px 22px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-cancel:hover { border-color: #8b3030; color: #c04040; }
+
+    .btn-del {
+      background: linear-gradient(135deg, #8b3030, #c04040);
+      border: none;
+      color: #fff;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      padding: 10px 22px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-del:hover { opacity: 0.85; }
+
+    /* VIDEO PLAYER MODAL */
+    .video-player { width: 100%; border: 1px solid #2a2010; display: block; }
+  </style>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MIS_COSAS_63">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icon-152.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="icon-120.png">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDh8EPrlFinsVJgyNJLekW7smba1tFjJ-4",
+      authDomain: "miscosas-63-8631b.firebaseapp.com",
+      projectId: "miscosas-63-8631b",
+      storageBucket: "miscosas-63-8631b.firebasestorage.app",
+      messagingSenderId: "565972190180",
+      appId: "1:565972190180:web:7b141d6864f232a8ca3df1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const DOC = doc(db, 'app', 'data');
+
+    // Expose to global scope
+    window._fbSave = async (data) => {
+      try {
+        await setDoc(DOC, { payload: JSON.stringify(data) });
+      } catch(e) { console.error('Firebase save error', e); }
+    };
+
+    // Listen for real-time changes from other devices
+    onSnapshot(DOC, (snap) => {
+      if (!snap.exists()) return;
+      try {
+        const remote = JSON.parse(snap.data().payload);
+        // Only update if different from current state
+        if (JSON.stringify({ cats: state.categories, nextId: state.nextId }) !== JSON.stringify({ cats: remote.cats, nextId: remote.nextId })) {
+          state.categories = remote.cats || [];
+          state.nextId = remote.nextId || 1;
+          // Save to localStorage as backup
+          try { localStorage.setItem('mc63_data', snap.data().payload); } catch(e) {}
+          render();
+        }
+      } catch(e) {}
+    });
+  </script>
+</head>
+<body>
+
+<div id="app">
+  <div class="header">
+    <div class="logo">
+      MIS_COSAS_63
+      <span>COLECCIÓN DE MANUALIDADES</span>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button class="header-btn" id="btn-all-videos">▶ TODOS</button>
+      <button class="header-btn" id="main-add-btn">+ AÑADIR</button>
+    </div>
+  </div>
+  <div class="breadcrumb" id="breadcrumb"></div>
+  <div id="search-bar" style="display:none;padding:10px 28px;border-bottom:1px solid #1a1408;">
+    <input type="text" id="search-input" placeholder="BUSCAR POR NOMBRE..." style="width:100%;max-width:400px;background:#0a0a0a;border:1px solid #2a2010;color:#e8d5a3;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;padding:9px 13px;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#8b6914'" onblur="this.style.borderColor='#2a2010'">
+  </div>
+  <div class="content">
+    <div class="section-title" id="section-title">CATEGORÍAS</div>
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<div id="modal-container"></div>
+
+<script>
+  const state = {
+    view: 'categories',
+    currentCat: null,
+    currentSub: null,
+    categories: [],
+    nextId: 1,
+    searchQuery: ''
+  };
+
+  function newId() { return state.nextId++; }
+
+  function save() {
+    const data = { cats: state.categories, nextId: state.nextId };
+    try { localStorage.setItem('mc63_data', JSON.stringify(data)); } catch(e) {}
+    if (window._fbSave) window._fbSave(data);
+  }
+
+  function load() {
+    try {
+      const d = JSON.parse(localStorage.getItem('mc63_data'));
+      if (d && d.cats) { state.categories = d.cats; state.nextId = d.nextId || 1; }
+    } catch(e) {}
+  }
+
+  load();
+
+  if (!state.categories.length) {
+    state.categories = [
+      { id: newId(), name: 'RESINA', subs: [
+        { id: newId(), name: 'PENDIENTES', videos: [] },
+        { id: newId(), name: 'CUADROS DE RESINA', videos: [] }
+      ]},
+      { id: newId(), name: 'CUADROS ABSTRACTOS', subs: [
+        { id: newId(), name: 'ACRÍLICO', videos: [] }
+      ]}
+    ];
+    save();
+  }
+
+  // ── RENDER ────────────────────────────────────────────────
+  function render() {
+    renderBreadcrumb();
+    const grid = document.getElementById('grid');
+    const secTitle = document.getElementById('section-title');
+    const addBtn = document.getElementById('main-add-btn');
+    const searchBar = document.getElementById('search-bar');
+    grid.innerHTML = '';
+
+    if (state.view === 'all') {
+      secTitle.textContent = 'TODOS LOS VÍDEOS';
+      addBtn.style.display = 'none';
+      searchBar.style.display = 'block';
+      renderGrid();
+      return;
+    }
+
+    addBtn.style.display = '';
+    searchBar.style.display = 'none';
+
+    if (state.view === 'categories') {
+      secTitle.textContent = 'CATEGORÍAS';
+      addBtn.textContent = '+ CATEGORÍA';
+      addBtn.onclick = () => openAddModal('cat');
+      state.categories.forEach(cat => {
+        grid.appendChild(makeCard(
+          cat.name,
+          cat.subs.length + (cat.subs.length === 1 ? ' SUBCATEGORÍA' : ' SUBCATEGORÍAS'),
+          () => enterCat(cat.id),
+          () => editItem('EDITAR CATEGORÍA', cat.name, val => { cat.name = val; save(); render(); }),
+          () => confirmDelete('¿BORRAR CATEGORÍA "' + cat.name + '"?', () => {
+            state.categories = state.categories.filter(c => c.id !== cat.id);
+            save(); render();
+          })
+        ));
+      });
+      grid.appendChild(makeAddCard('NUEVA CATEGORÍA', () => openAddModal('cat')));
+
+    } else if (state.view === 'subs') {
+      const cat = state.categories.find(c => c.id === state.currentCat);
+      secTitle.textContent = 'SUBCATEGORÍAS · ' + cat.name;
+      addBtn.textContent = '+ SUBCATEGORÍA';
+      addBtn.onclick = () => openAddModal('sub');
+      cat.subs.forEach(sub => {
+        grid.appendChild(makeCard(
+          sub.name,
+          sub.videos.length + (sub.videos.length === 1 ? ' VIDEO' : ' VIDEOS'),
+          () => enterSub(cat.id, sub.id),
+          () => editItem('EDITAR SUBCATEGORÍA', sub.name, val => { sub.name = val; save(); render(); }),
+          () => confirmDelete('¿BORRAR SUBCATEGORÍA "' + sub.name + '"?', () => {
+            cat.subs = cat.subs.filter(s => s.id !== sub.id);
+            save(); render();
+          })
+        ));
+      });
+      grid.appendChild(makeAddCard('NUEVA SUBCATEGORÍA', () => openAddModal('sub')));
+
+    } else if (state.view === 'videos') {
+      const cat = state.categories.find(c => c.id === state.currentCat);
+      const sub = cat.subs.find(s => s.id === state.currentSub);
+      secTitle.textContent = 'VIDEOS · ' + sub.name;
+      addBtn.textContent = '+ VIDEO';
+      addBtn.onclick = () => openAddModal('video');
+      sub.videos.forEach(v => {
+        grid.appendChild(makeVideoCard(v,
+          () => openVideo(v),
+          () => editItem('RENOMBRAR VIDEO', v.name, val => { v.name = val; save(); render(); }),
+          () => confirmDelete('¿BORRAR VIDEO "' + v.name + '"?', () => {
+            sub.videos = sub.videos.filter(x => x.id !== v.id);
+            save(); render();
+          })
+        ));
+      });
+      grid.appendChild(makeAddCard('SUBIR VIDEO', () => openAddModal('video')));
+    }
+  }
+
+  // ── CARDS ─────────────────────────────────────────────────
+  function makeCard(name, meta, onClick, onEdit, onDel) {
+    const d = document.createElement('div');
+    d.className = 'card';
+    d.innerHTML = `
+      <div>
+        <div class="card-name">${name}</div>
+        <div class="card-meta">${meta}</div>
+      </div>
+      <div class="card-actions">
+        <button class="act-btn edit-btn">EDITAR</button>
+        <button class="act-btn del del-btn">BORRAR</button>
+      </div>`;
+    d.addEventListener('click', e => {
+      if (!e.target.classList.contains('act-btn')) onClick();
+    });
+    d.querySelector('.edit-btn').addEventListener('click', e => { e.stopPropagation(); onEdit(); });
+    d.querySelector('.del-btn').addEventListener('click', e => { e.stopPropagation(); onDel(); });
+    return d;
+  }
+
+  // ── PLATAFORMAS ───────────────────────────────────────────
+  function detectPlatform(url) {
+    if (!url) return { type: 'local', label: '' };
+    const u = url.trim();
+    if (/youtube\.com|youtu\.be/.test(u))   return { type: 'youtube',   label: 'YouTube' };
+    if (/instagram\.com/.test(u))           return { type: 'instagram', label: 'Instagram' };
+    if (/facebook\.com|fb\.watch/.test(u))  return { type: 'facebook',  label: 'Facebook' };
+    if (/tiktok\.com/.test(u))              return { type: 'tiktok',    label: 'TikTok' };
+    if (/vimeo\.com/.test(u))               return { type: 'vimeo',     label: 'Vimeo' };
+    if (/twitter\.com|x\.com/.test(u))      return { type: 'twitter',   label: 'X / Twitter' };
+    if (/pinterest\.com|pin\.it/.test(u))   return { type: 'pinterest', label: 'Pinterest' };
+    if (/^https?:\/\//.test(u))             return { type: 'web',       label: 'Enlace web' };
+    return { type: 'local', label: 'Archivo local' };
+  }
+
+  function getYouTubeId(url) {
+    if (!url) return null;
+    const patterns = [
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([A-Za-z0-9_-]{11})/,
+      /youtube\.com\/watch\?.*&v=([A-Za-z0-9_-]{11})/
+    ];
+    for (const p of patterns) { const m = url.match(p); if (m) return m[1]; }
+    return null;
+  }
+
+  function getVimeoId(url) {
+    const m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+    return m ? m[1] : null;
+  }
+
+  function getPlatformThumb(url) {
+    const p = detectPlatform(url);
+    if (p.type === 'youtube') {
+      const id = getYouTubeId(url);
+      return id ? `https://img.youtube.com/vi/${id}/mqdefault.jpg` : null;
+    }
+    return null;
+  }
+
+  const PLATFORM_ICONS = {
+    youtube:   { bg: '#FF0000', icon: '▶', text: 'YouTube' },
+    instagram: { bg: 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)', icon: '◈', text: 'Instagram' },
+    facebook:  { bg: '#1877F2', icon: '◉', text: 'Facebook' },
+    tiktok:    { bg: '#010101', icon: '♪', text: 'TikTok' },
+    vimeo:     { bg: '#1ab7ea', icon: '▶', text: 'Vimeo' },
+    twitter:   { bg: '#000000', icon: '✕', text: 'X / Twitter' },
+    pinterest: { bg: '#E60023', icon: '◈', text: 'Pinterest' },
+    web:       { bg: '#2a2010', icon: '⊕', text: 'Web' },
+    local:     { bg: '#1a1408', icon: '▶', text: 'Local' }
+  };
+
+  function makePlatformBadge(url) {
+    const p = detectPlatform(url);
+    const pi = PLATFORM_ICONS[p.type] || PLATFORM_ICONS.web;
+    return `<div style="position:absolute;bottom:8px;left:8px;background:${pi.bg};color:#fff;font-family:'Raleway',sans-serif;font-size:10px;font-weight:400;letter-spacing:1px;padding:3px 8px;border-radius:2px;text-transform:uppercase;">${pi.text}</div>`;
+  }
+
+  function makeVideoCard(v, onPlay, onEdit, onDel) {
+    const d = document.createElement('div');
+    d.className = 'video-card';
+    const thumb = getPlatformThumb(v.url);
+    const platform = detectPlatform(v.url);
+    let thumbHtml = '';
+    if (thumb) {
+      thumbHtml = `<img src="${thumb}" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+    } else if (platform.type === 'local' && v.url && v.url.startsWith('blob:')) {
+      thumbHtml = `<video src="${v.url}" preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>`;
+    }
+    const sizeLabel = platform.label || v.size || '';
+    d.innerHTML = `
+      <div class="video-thumb">
+        ${thumbHtml}
+        ${v.url ? makePlatformBadge(v.url) : ''}
+        <div class="play-icon">&#9654;</div>
+      </div>
+      <div class="video-info">
+        <div class="video-name">${v.name}</div>
+        <div class="video-size">${sizeLabel}</div>
+      </div>
+      <div class="card-actions">
+        <button class="act-btn edit-btn">RENOMBRAR</button>
+        <button class="act-btn del del-btn">BORRAR</button>
+      </div>`;
+    d.querySelector('.video-thumb').addEventListener('click', onPlay);
+    d.querySelector('.edit-btn').addEventListener('click', onEdit);
+    d.querySelector('.del-btn').addEventListener('click', onDel);
+    return d;
+  }
+
+  function getTikTokId(url) {
+    const m = url.match(/tiktok\.com\/@[^/]+\/video\/(\d+)/);
+    return m ? m[1] : null;
+  }
+
+  function openVideo(v) {
+    if (!v.url) return;
+    const platform = detectPlatform(v.url);
+
+    // ── Archivo local ── (único caso que se reproduce dentro de la app)
+    if (platform.type === 'local') {
+      if (v.url.startsWith('blob:') || v.url.startsWith('file:') || v.url.startsWith('http')) {
+        showModal(`
+          <div class="modal" style="width:660px;max-width:96vw;">
+            <div class="modal-title">${v.name}</div>
+            <video src="${v.url}" controls class="video-player"></video>
+            <div class="modal-btns" style="margin-top:14px;">
+              <button class="btn-cancel" id="btn-cancel">CERRAR</button>
+            </div>
+          </div>`);
+        document.getElementById('btn-cancel').addEventListener('click', closeModal);
+      }
+      return;
+    }
+
+    // ── Todas las plataformas externas: abrir directamente ──
+    window.open(v.url, '_blank');
+  }
+
+  function makeAddCard(label, fn) {
+    const d = document.createElement('div');
+    d.className = 'add-card';
+    d.innerHTML = `<div class="plus">+</div><div>${label}</div>`;
+    d.addEventListener('click', fn);
+    return d;
+  }
+
+  // ── ALL VIDEOS VIEW ──────────────────────────────────────
+  function renderGrid() {
+    if (state.view !== 'all') return;
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    const q = state.searchQuery;
+    let allVideos = [];
+    state.categories.forEach(cat => {
+      cat.subs.forEach(sub => {
+        sub.videos.forEach(v => {
+          allVideos.push({ v, cat, sub });
+        });
+      });
+    });
+    const filtered = q ? allVideos.filter(({v}) => v.name.toUpperCase().includes(q)) : allVideos;
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div style="color:#3a2e10;font-family:Raleway,sans-serif;font-size:12px;letter-spacing:3px;padding:20px 0;">SIN RESULTADOS</div>';
+      return;
+    }
+    filtered.forEach(({v, cat, sub}) => {
+      const card = makeVideoCard(v,
+        () => openVideo(v),
+        () => editItem('RENOMBRAR VIDEO', v.name, val => { v.name = val; save(); renderGrid(); }),
+        () => confirmDelete('¿BORRAR VIDEO "' + v.name + '"?', () => {
+          sub.videos = sub.videos.filter(x => x.id !== v.id);
+          save(); renderGrid();
+        })
+      );
+      // Add breadcrumb label inside card
+      const label = document.createElement('div');
+      label.style.cssText = 'padding:0 14px 10px;font-family:Raleway,sans-serif;font-size:9px;letter-spacing:2px;color:#3a2e10;text-transform:uppercase;cursor:pointer;transition:color 0.2s;';
+      label.textContent = cat.name + ' › ' + sub.name;
+      label.title = 'Ir a ' + sub.name;
+      label.addEventListener('mouseenter', () => label.style.color = '#8b6914');
+      label.addEventListener('mouseleave', () => label.style.color = '#3a2e10');
+      label.addEventListener('click', (e) => { e.stopPropagation(); enterSub(cat.id, sub.id); });
+      card.appendChild(label);
+      grid.appendChild(card);
+    });
+  }
+
+  // ── NAVIGATION ────────────────────────────────────────────
+  function renderBreadcrumb() {
+    const bc = document.getElementById('breadcrumb');
+    if (state.view === 'categories') {
+      bc.innerHTML = '<span class="current">INICIO</span>';
+      return;
+    }
+    if (state.view === 'all') {
+      bc.innerHTML = '<span id="bc-home">INICIO</span><span class="sep">›</span><span class="current">TODOS LOS VÍDEOS</span>';
+      document.getElementById('bc-home').addEventListener('click', goHome);
+      return;
+    }
+    const cat = state.categories.find(c => c.id === state.currentCat);
+    if (state.view === 'subs') {
+      bc.innerHTML = `<span id="bc-home">INICIO</span><span class="sep">›</span><span class="current">${cat.name}</span>`;
+      document.getElementById('bc-home').addEventListener('click', goHome);
+    } else {
+      const sub = cat.subs.find(s => s.id === state.currentSub);
+      bc.innerHTML = `<span id="bc-home">INICIO</span><span class="sep">›</span><span id="bc-cat">${cat.name}</span><span class="sep">›</span><span class="current">${sub.name}</span>`;
+      document.getElementById('bc-home').addEventListener('click', goHome);
+      document.getElementById('bc-cat').addEventListener('click', () => enterCat(cat.id));
+    }
+  }
+
+  function goHome() { state.view = 'categories'; state.currentCat = null; state.currentSub = null; state.searchQuery = ''; render(); }
+  function goAllVideos() { state.view = 'all'; state.currentCat = null; state.currentSub = null; state.searchQuery = ''; render(); document.getElementById('search-input').value = ''; document.getElementById('search-input').focus(); }
+  function enterCat(cid) { state.view = 'subs'; state.currentCat = cid; render(); }
+  function enterSub(cid, sid) { state.view = 'videos'; state.currentCat = cid; state.currentSub = sid; render(); }
+
+  // ── MODALS ────────────────────────────────────────────────
+  function showModal(html) {
+    const mc = document.getElementById('modal-container');
+    mc.innerHTML = `<div class="modal-bg" id="modal-bg">${html}</div>`;
+    document.getElementById('modal-bg').addEventListener('click', e => {
+      if (e.target.id === 'modal-bg') closeModal();
+    });
+  }
+
+  function closeModal() {
+    const mc = document.getElementById('modal-container');
+    // Destruir iframes antes de eliminar para cortar audio/video
+    mc.querySelectorAll('iframe').forEach(f => { f.src = ''; });
+    mc.querySelectorAll('video').forEach(v => { v.pause(); v.src = ''; v.load(); });
+    mc.innerHTML = '';
+  }
+
+  function openAddModal(type) {
+    let title, placeholder, fileField = '';
+    if (type === 'cat') { title = 'NUEVA CATEGORÍA'; placeholder = 'NOMBRE DE CATEGORÍA'; }
+    else if (type === 'sub') { title = 'NUEVA SUBCATEGORÍA'; placeholder = 'NOMBRE DE SUBCATEGORÍA'; }
+    else {
+      title = 'SUBIR VIDEO';
+      placeholder = 'NOMBRE (opcional)';
+      fileField = `
+        <div style="margin-bottom:14px;">
+          <div style="font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:3px;color:#6b5a2a;text-transform:uppercase;margin-bottom:8px;">Desde carpeta del dispositivo</div>
+          <input type="file" id="modal-file" accept="video/*">
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <div style="flex:1;height:1px;background:#2a2010;"></div>
+          <span style="font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:3px;color:#3a2e10;text-transform:uppercase;">o</span>
+          <div style="flex:1;height:1px;background:#2a2010;"></div>
+        </div>
+        <div>
+          <div style="font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:3px;color:#6b5a2a;text-transform:uppercase;margin-bottom:8px;">Pega la ruta o dirección del archivo</div>
+          <textarea id="modal-path" rows="2" placeholder="C:\\Videos\\video.mp4    /media/usb/video.mp4    file:///ruta/al/video.mp4" style="width:100%;background:#0a0a0a;border:1px solid #2a2010;color:#e8d5a3;font-family:'Raleway',sans-serif;font-size:12px;font-weight:300;letter-spacing:1px;padding:10px 13px;outline:none;resize:none;line-height:1.5;box-sizing:border-box;transition:border-color 0.2s;" onfocus="this.style.borderColor='#8b6914'" onblur="this.style.borderColor='#2a2010'"></textarea>
+        </div>`;
+    }
+
+    showModal(`
+      <div class="modal" style="${type === 'video' ? 'width:460px;' : ''}">
+        <div class="modal-title">${title}</div>
+        <input type="text" id="modal-input" placeholder="${placeholder}">
+        ${fileField}
+        <div class="modal-btns">
+          <button class="btn-cancel" id="btn-cancel">CANCELAR</button>
+          <button class="btn-confirm" id="btn-confirm">GUARDAR</button>
+        </div>
+      </div>`);
+
+    document.getElementById('modal-input').focus();
+    document.getElementById('btn-cancel').addEventListener('click', closeModal);
+    document.getElementById('btn-confirm').addEventListener('click', () => confirmAdd(type));
+    document.getElementById('modal-input').addEventListener('keydown', e => { if (e.key === 'Enter') confirmAdd(type); });
+    if (type === 'video') {
+      const pathInput = document.getElementById('modal-path');
+      const fileInput = document.getElementById('modal-file');
+      if (pathInput && fileInput) {
+        pathInput.addEventListener('input', () => { if (pathInput.value.trim()) fileInput.value = ''; });
+        fileInput.addEventListener('change', () => { if (fileInput.files.length) pathInput.value = ''; });
+      }
+    }
+  }
+
+  function confirmAdd(type) {
+    const raw = document.getElementById('modal-input').value.trim();
+    const name = raw.toUpperCase();
+
+    if (type === 'cat') {
+      if (!name) { document.getElementById('modal-input').focus(); return; }
+      state.categories.push({ id: newId(), name, subs: [] });
+    } else if (type === 'sub') {
+      if (!name) { document.getElementById('modal-input').focus(); return; }
+      const cat = state.categories.find(c => c.id === state.currentCat);
+      cat.subs.push({ id: newId(), name, videos: [] });
+    } else {
+      const fileInput = document.getElementById('modal-file');
+      const pathInput = document.getElementById('modal-path');
+      const cat = state.categories.find(c => c.id === state.currentCat);
+      const sub = cat.subs.find(s => s.id === state.currentSub);
+      let url = null, size = '', autoName = '';
+
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        url = URL.createObjectURL(file);
+        size = formatSize(file.size);
+        autoName = file.name.replace(/\.[^.]+$/, '').toUpperCase();
+      } else if (pathInput && pathInput.value && pathInput.value.trim()) {
+        url = pathInput.value.trim();
+        const ytId = getYouTubeId(url);
+        const platform = detectPlatform(url);
+        if (ytId) {
+          size = 'YouTube';
+          autoName = 'VIDEO YOUTUBE ' + ytId.substring(0, 6).toUpperCase();
+        } else if (platform.type !== 'local') {
+          size = platform.label;
+          autoName = (platform.label + ' VIDEO').toUpperCase();
+        } else {
+          const parts = url.replace(/\\/g, '/').split('/');
+          autoName = (parts[parts.length - 1] || 'VIDEO').replace(/\.[^.]+$/, '').toUpperCase();
+          if (!url.startsWith('http') && !url.startsWith('file:')) {
+            url = 'file:///' + url.replace(/\\/g, '/').replace(/^\/+/, '');
+          }
+          size = 'ruta local';
+        }
+      } else {
+        return;
+      }
+
+      const finalName = name || autoName || 'VIDEO SIN NOMBRE';
+      sub.videos.push({ id: newId(), name: finalName, url, size });
+    }
+    save(); closeModal(); render();
+  }
+
+  function editItem(title, currentName, onSave) {
+    showModal(`
+      <div class="modal">
+        <div class="modal-title">${title}</div>
+        <input type="text" id="modal-input" value="${currentName}">
+        <div class="modal-btns">
+          <button class="btn-cancel" id="btn-cancel">CANCELAR</button>
+          <button class="btn-confirm" id="btn-confirm">GUARDAR</button>
+        </div>
+      </div>`);
+
+    const inp = document.getElementById('modal-input');
+    inp.focus(); inp.select();
+    document.getElementById('btn-cancel').addEventListener('click', closeModal);
+    document.getElementById('btn-confirm').addEventListener('click', () => {
+      const val = inp.value.trim().toUpperCase();
+      if (val) { onSave(val); closeModal(); }
+    });
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { const val = inp.value.trim().toUpperCase(); if (val) { onSave(val); closeModal(); } }
+    });
+  }
+
+  function confirmDelete(msg, onConfirm) {
+    showModal(`
+      <div class="modal">
+        <div class="modal-title">${msg}</div>
+        <p class="modal-warn">ESTA ACCIÓN NO SE PUEDE DESHACER</p>
+        <div class="modal-btns">
+          <button class="btn-cancel" id="btn-cancel">CANCELAR</button>
+          <button class="btn-del" id="btn-del">BORRAR</button>
+        </div>
+      </div>`);
+    document.getElementById('btn-cancel').addEventListener('click', closeModal);
+    document.getElementById('btn-del').addEventListener('click', () => { onConfirm(); closeModal(); });
+  }
+
+  // ── UTILS ─────────────────────────────────────────────────
+  function formatSize(bytes) {
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  render();
+
+  document.getElementById('btn-all-videos').addEventListener('click', goAllVideos);
+  document.getElementById('search-input').addEventListener('input', function() {
+    state.searchQuery = this.value.trim().toUpperCase();
+    renderGrid();
+  });
+</script>
+
+<div id="file-warning" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1a0e00;border-top:2px solid #d4af37;padding:18px 28px;font-family:'Raleway',sans-serif;">
+  <div style="max-width:700px;margin:0 auto;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;">
+      <div>
+        <div style="font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;color:#d4af37;margin-bottom:10px;">⚠ LOS VÍDEOS NO SE REPRODUCIRÁN DESDE FILE://</div>
+        <div style="font-size:12px;color:#a08030;letter-spacing:1px;line-height:1.9;">
+          El navegador bloquea YouTube, Instagram y otros embeds cuando el archivo se abre con doble clic.<br>
+          <strong style="color:#d4af37;">Solución:</strong> Abre una ventana de CMD en la carpeta del archivo y ejecuta:<br>
+          <code style="display:inline-block;margin-top:8px;background:#0a0a0a;border:1px solid #3a2e10;color:#e8d5a3;padding:6px 14px;letter-spacing:2px;font-size:12px;">python -m http.server 8080</code><br>
+          <span style="font-size:11px;color:#6b5a2a;">Luego abre: </span>
+          <code style="background:#0a0a0a;border:1px solid #3a2e10;color:#c9a227;padding:4px 10px;font-size:11px;letter-spacing:1px;">http://localhost:8080/Mis_cosas_63_v2.html</code>
+        </div>
+      </div>
+      <button onclick="document.getElementById('file-warning').style.display='none'" style="background:transparent;border:1px solid #3a2e10;color:#6b5a2a;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;padding:7px 14px;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.2s;" onmouseover="this.style.borderColor='#d4af37';this.style.color='#d4af37'" onmouseout="this.style.borderColor='#3a2e10';this.style.color='#6b5a2a'">✕ CERRAR</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  if (location.protocol === 'file:') {
+    document.getElementById('file-warning').style.display = 'block';
+  }
+</script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+  }
+</script>
+</body>
+</html>
